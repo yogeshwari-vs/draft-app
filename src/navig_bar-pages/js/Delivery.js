@@ -21,8 +21,8 @@ function Delivery() {
 
 	const availFunction = () => {
 		if (available == "yes") {
-			//window.location.href = string + '/yesavail'	
-			window.location.href =" http://localhost:3000/simul";
+			window.location.href = string + '/yesavail'	
+			//window.location.href = string +"/simul";
 		}
 		else {
 			window.location.href = string +	'/notavail'	;
