@@ -1,0 +1,30 @@
+.Card-alignment {
+    align-items: center;
+    clear:left;
+        height:25px;
+        margin-top:20px;
+        margin-right:20px;
+        margin-bottom:20px;              
+        margin-left:20px;
+        }
+
+.buttonBox{
+
+    padding: 10px;
+    border-radius: 5%;
+    background-color: cadetblue;
+    border-color: cadetblue;
+    transition: 0.5s;
+}
+
+.buttonBox:hover{
+    transform: scale(1.15);   /* Zoom in or out */
+    box-shadow: 0px 0px 15px, 0px;
+}
+
+.buttonElement {
+    /* size: 10px; */
+    font-size:25px;
+    font-style:normal;
+    color:#000;
+}

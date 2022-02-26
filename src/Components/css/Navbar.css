@@ -1,0 +1,98 @@
+/* To display the horizontal bar */
+.Navig-bar {
+    background-color: cadetblue;
+    height: 50px;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+}
+
+/* To display the navigation bar icon and close icon */
+.Bars-icon_menu {
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    background: none;
+
+}
+
+.Bars-icon_close {
+    margin-left: 2rem;
+   
+    font-size: 1.5rem;
+    background: none;
+
+}
+
+/* To display the items in the menu */
+.Navig-bar-menu {
+    background-color: cadetblue;
+    height:100vh;
+    width: 222px;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0cm;
+    left: -100%;
+    transition: 650ms;
+    animation: ease-in;
+}
+
+/* When navigation bar icon is clicked */
+.Navig-bar-menu.active {
+    left: 0%;
+    transition: 400ms;
+}
+
+/* Styling items in the menu */
+.Nav-bar-item {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 5px 50px 0px 15px;
+    list-style: none;
+    height: 60px;
+    
+    
+}
+
+/* Styling the a tags */
+.Nav-bar-item a {
+    color:black;
+    font-size: 20px;
+    width: 100%;
+    height: 95%;
+    display: flex;
+    align-items: center;
+    padding: 0px 40px; 
+    border-radius: 5px;
+}
+
+/* Styling when the tag is clicked */
+.Nav-bar-item a:hover{
+    color:black;
+    background:grey;
+    width: 63%;
+    padding: auto;
+    
+}
+
+.Nav-bar-items {
+    width: 100%;
+}
+
+/* Styling the close toggle icon*/
+.Navig-bar-toggle {
+    background-color:cadetblue ;
+    /* background-color: chartreuse; */
+    width: 40%;
+    height: 40px;
+    display:flex;
+    align-items: center;
+    justify-content:flex-start;
+
+}
+
+span {
+    margin-left: 15px;
+}
+

@@ -1,0 +1,29 @@
+.Card {
+    width: 400px;
+    height:400px;
+    box-shadow: 0px 0px 15px, -5px;
+    transition: 0.5s;
+    background-color:cadetblue;
+
+}
+/* When curser is kept on the card  */
+.Card:hover {
+    transform: scale(1.15);   /* Zoom in or out */
+    box-shadow: 0px 0px 15px, 0px;
+}
+
+
+.Card-image img{
+    height: 200px;
+    width: 200px;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px 0px 5px 50px;
+}
+.Card-title {
+    font-size: 30px;
+}
+
+.Card-body {
+    font-size: 23px;
+}
