@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 //import { Link } from '@material-ui/core';
 
-function Card({title,imageUrl,body,card_name}) {
+function Card({title,body }) {
 	
 
 	var canDeliv = "/delivery/candeliv";
@@ -12,22 +12,18 @@ function Card({title,imageUrl,body,card_name}) {
 	return (
 		<>
 		<div className='Card' >
-		
-			<div className='Card-image'>
-				<img src={imageUrl} alt='' />
-			</div>
 			<div className='Card-title'>
 				<b>{title}</b>
 			</div>
 			<div className='Card-body'>
 				<p>{body}</p>
 			</div>
-
-		<Link to= {card_name}> Open</Link>
-
 		</div>
 		</>
 	)
 }
 
 export default Card
+
+
+

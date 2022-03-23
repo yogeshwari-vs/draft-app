@@ -70,7 +70,7 @@
 /* Styling when the tag is clicked */
 .Nav-bar-item a:hover{
     color:black;
-    background:grey;
+    background:rgb(128, 128, 128);
     width: 63%;
     padding: auto;
     

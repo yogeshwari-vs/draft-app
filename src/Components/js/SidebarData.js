@@ -7,7 +7,7 @@ export const SidebarData = [
 
     {
         title: 'Home',
-        path: '/',
+        path: '/SBADR_application',
         icon: <AiIcons.AiFillHome />,
         cName: 'Nav-bar-item'
     },

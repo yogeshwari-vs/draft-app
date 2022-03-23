@@ -4,12 +4,12 @@ import {useState} from 'react';
 import React from 'react';
 import firebase from 'firebase';
 import database from '../../firebase';
-
+import LoginOrSignup from '../../Components/js/LoginOrSignup';
 
 function Simul() {
 
 	const [dir, setDir] = useState();
-
+	
 	const clickFunction = () => {
 		database.ref('user').set({
 			dir :dir,
@@ -65,11 +65,10 @@ function Simul() {
 					Location: resultTo,
 					Name: "nil"
 				})
-		
-				
+				alert('Delivery order placed!')	
 			}
 
-			alert('Delivery order placed!')
+			
 		}
 		else{
 			window.location.href = window.location.href + "delivery/notavail";
@@ -89,7 +88,8 @@ function Simul() {
 		</center>
 		<div className='inputData'>
 			<br></br>
-			
+
+
 			<center>
 				
 				<h2>Movement of robot </h2>

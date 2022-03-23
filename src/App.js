@@ -12,8 +12,11 @@ import Home from './navig_bar-pages/js/Home';
 import Simul from './navig_bar-pages/js/Simul';
 import PrevDeliv from './Components/cards/js/PrevDeliv';
 import CanDeliv from './Components/cards/js/CanDeliv';
-import YesAvail from './navig_bar-pages/avail_pages/YesAvail';
-import NotAvail from './navig_bar-pages/avail_pages/NotAvail';
+import YesAvail from './navig_bar-pages/avail_pages/js/YesAvail';
+import NotAvail from './navig_bar-pages/avail_pages/js/NotAvail';
+import LoginOrSignup from './Components/js/LoginOrSignup';
+import Register from './Components/js/Register';
+import PasswordSetup from './Components/js/PasswordSetup'
 
 function App() {
 
@@ -27,11 +30,12 @@ function App() {
 		</div>
 
     <Routes>
-		<Route path='/' exact element= {<Home />} />
+		<Route path='/SBADR_application' exact element= {<Home />} />
 		<Route path='/about' exact element= {<About />}/>
 		<Route path='/contact' exact element = {<Contact />} />
 		<Route path='/delivery' exact element= {<Delivery />}/>
 		<Route path='/direction' exact element= {<Direction />}/>
+		<Route path='/login' exact element={<LoginOrSignup />} />
 		<Route path='/simul' exact element = { <Simul />} />
 		<Route path='/delivery/prevdeliv' exact element = {<PrevDeliv/>} />
 		<Route path='/delivery/candeliv' exact element = {<CanDeliv />}/>
@@ -39,7 +43,9 @@ function App() {
 		<Route path='/instr' exact element = {<Instructions />} />
 		<Route path='/delivery/yesavail' exact element = {<YesAvail />}/>
 		<Route path='/delivery/notavail' exact element = {<NotAvail />}/>
-    </Routes>
+		<Route path='/register' exact element = { <Register />} />
+		<Route path='/register/passwordSetup' exact element = { < PasswordSetup />} />
+    a</Routes>
 	</Router>
 
 	</>
