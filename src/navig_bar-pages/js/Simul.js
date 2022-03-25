@@ -37,7 +37,7 @@ function Simul() {
 
 
 	const locationData = () => {
-		if (available == "yes")
+		if (available === "yes")
 		{
 			var selectedFrom = document.getElementById('selectionBoxFrom')
 			var selectedTo = document.getElementById('selectionBoxTo')
@@ -51,7 +51,7 @@ function Simul() {
 			console.log(resultFrom)
 			console.log(resultTo)
 			
-			if (resultFrom == resultTo) {
+			if (resultFrom === resultTo) {
 				alert("Sender location cannot be same as Receiver location!")
 			}
 			else {

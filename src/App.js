@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {BrowserRouter as Router, HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Horizbar from './Components/js/Horizbar';
 import Navbar from './Components/js/Navbar';
@@ -23,14 +23,14 @@ function App() {
 	return (
 	<>
 	
-	<Router>
+	<HashRouter >
 		<div className='Title-app'>
 			<Horizbar />
 			<Navbar />
 		</div>
 
     <Routes>
-		<Route path='/SBADR_application' exact element= {<Home />} />
+		<Route path='/' exact element= {<Home />} />
 		<Route path='/about' exact element= {<About />}/>
 		<Route path='/contact' exact element = {<Contact />} />
 		<Route path='/delivery' exact element= {<Delivery />}/>
@@ -45,8 +45,8 @@ function App() {
 		<Route path='/delivery/notavail' exact element = {<NotAvail />}/>
 		<Route path='/register' exact element = { <Register />} />
 		<Route path='/register/passwordSetup' exact element = { < PasswordSetup />} />
-    a</Routes>
-	</Router>
+    </Routes>
+	</HashRouter>
 
 	</>
   );
