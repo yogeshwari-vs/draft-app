@@ -68,7 +68,7 @@ function YesAvail() {
 
 
 					
-				window.location.href = window.location.href + "/delivery";
+				window.location.href = "https://yogeshwari-vs.github.io/draft-app/#/delivery";
 				
 
 			}
