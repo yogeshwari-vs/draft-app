@@ -68,7 +68,7 @@ function YesAvail() {
 
 
 					
-				window.location.href = "http://localhost:3000/delivery";
+				window.location.href = window.location.href + "/delivery";
 				
 
 			}
