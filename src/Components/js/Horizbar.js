@@ -10,7 +10,7 @@
         var originString = window.location.origin;
 
         const clickFunc = () => {
-            window.location.href = originString + "/login";
+            window.location.href = originString + "/draft-app/#/login";
             console.log(originString + '/draft-app/#/login')
 
 
