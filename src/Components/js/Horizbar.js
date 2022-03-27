@@ -1,20 +1,38 @@
-import React from 'react';
-import '../css/Horizbar.css';
-function Horizbar() {
-    return (
-        <>
-			<div className='Title'>
-					Delivery Robot
-			</div>
+    import React from 'react';
+    import '../css/Horizbar.css';
+    import { TextField, Button } from '@material-ui/core';
+    import {BrowserRouter as Router, HashRouter, Route, Routes } from 'react-router-dom';
+    import LoginOrSignup from './LoginOrSignup';
 
-            <a href='/login'>
-            <div className='Login' >
-                Login
-            </div>
-            </a>
-            
-        </>
-    )
-}
 
-export default Horizbar
+    function Horizbar() {
+
+        var originString = window.location.origin;
+
+        const clickFunc = () => {
+            window.location.href = originString + "/login";
+            console.log(originString + '/login')
+
+
+        }
+        return (
+            <>
+                <div className='Title'>
+                        Delivery Robot
+                </div>
+
+                {/* <a href='/login'>
+                <div className='Login' >
+                    Login
+                </div>
+                </a> */}
+                <div className='Login'>
+                <Button variant="contained" onClick={clickFunc}>Login</Button>
+                </div>
+
+                
+            </>
+        )
+    }
+
+    export default Horizbar
