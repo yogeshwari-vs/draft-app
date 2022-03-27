@@ -34,11 +34,16 @@ function Register() {
 		setValues({ ...values, [prop]: event.target.value });
 	  };
 	  
+	  const clickSetupPassword = () => {
+		  window.location.href = window.location.origin + '/register/passwordSetup'
+	  }
+	  
 	return (
 		<div className='registerClass'>
 		{/* No validation  */}
 			<center>
-				<div> <a>Details</a><>&#62;&#62;</> <a href='/register/passwordSetup'>Setup password</a></div>
+				<div> <a>Details</a><>&#62;&#62;</> <Button variant="contained" onClick={clickSetupPassword}></Button>
+				<a href='/register/passwordSetup'>Setup password</a></div>
 			</center>
 			<center>
 			<Box

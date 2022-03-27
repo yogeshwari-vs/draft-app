@@ -36,6 +36,10 @@ function LoginOrSignup() {
     console.log(username)
     console.log(values.password)
     
+    const clickRegister = () => {
+      window.location.href = window.location.origin + '/register'
+    }
+    
     return (
         <div>
             <center>
@@ -79,7 +83,8 @@ function LoginOrSignup() {
             <Button variant='contained'>Register</Button>
             <br />
             <br />
-            Don't have an account? <a href='/register'>Register</a>
+            Don't have an account?
+            <Button onClick={clickRegister}> Register </Button> <a href='/register'>Register</a>
             </center>
 
             <br />
