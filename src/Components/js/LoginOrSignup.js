@@ -4,7 +4,7 @@ import React from 'react'
 import FormControl from '@mui/material/FormControl';
 
 import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from "@material-ui/icons/Visibility";
@@ -37,6 +37,7 @@ function LoginOrSignup() {
     console.log(values.password)
     
     const clickRegister = () => {
+
       window.location.href = window.location.origin + '/draft-app/#/register'
     }
     
@@ -48,40 +49,38 @@ function LoginOrSignup() {
             <TextField
             label = 'Username/emailID'
             margin='normal'
-            style={{width:'32%'}}
+            style={{width:'23%'}}
             onChange={(e)=> setUsername(e.target.value)}
             >
             </TextField>
             <br />
 
-            <FormControl sx={{ m: 1, width: '34ch' }} variant="standard">
-			<InputLabel htmlFor="standard-adornment-password"> Password</InputLabel>
-			<Input
-            	id="standard-adornment-password" 
-				type={values.showPassword ? 'text' : 'password'}
-				value={values.password}
-				onChange={handlePasswordChange("password")}
-				endAdornment= {
-				<InputAdornment position="end">
-                <IconButton
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-			}
-			label="Password"
-			/>
-			</FormControl>
+            <FormControl sx={{ m: 1, width: '23%' }} >
+            <InputLabel htmlFor="standard-adornment-password"> Password</InputLabel>
+            <OutlinedInput
+                    id="standard-adornment-password" 
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handlePasswordChange("password")}
+              endAdornment= {
+              <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+            }
+            label="Password"
+            />
+            </FormControl>
 
             <br />
             <br />
             <Button variant='contained'>Submit</Button>
             <br />
-            <br/>
-            <Button variant='contained'>Register</Button>
-            <br />
+          
             <br />
             Don't have an account?
             <Button onClick={clickRegister}> Register </Button> <a href='/register'>Register</a>

@@ -74,32 +74,6 @@ function Register() {
 			<br />
 			<br />
 
-
-			<FormControl sx={{ m: 1, width: '40ch' }} >
-			<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-			<OutlinedInput
-            	id="outlined-adornment-password" 
-				type={values.showPassword ? 'text' : 'password'}
-				value={values.password}
-				onChange={handlePasswordChange("password")}
-				endAdornment= {
-				<InputAdornment position="end">
-                <IconButton
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-			}
-			label="Password"
-			/>
-			</FormControl>
-
-			<br />
-			<br />
-			<br />
-			<br />
 			</center>
 		</div>
 	)
