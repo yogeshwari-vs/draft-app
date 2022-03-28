@@ -35,6 +35,7 @@ function Register() {
 	  };
 	  
 	  const clickSetupPassword = () => {
+		  console.log()
 		  window.location.href = window.location.origin + '/draft-app/#/register/passwordSetup'
 	  }
 	  
