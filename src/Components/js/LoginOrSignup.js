@@ -37,7 +37,7 @@ function LoginOrSignup() {
     console.log(values.password)
     
     const clickRegister = () => {
-      window.location.href = window.location.origin + '/register'
+      window.location.href = window.location.origin + '/draft-app/#/register'
     }
     
     return (

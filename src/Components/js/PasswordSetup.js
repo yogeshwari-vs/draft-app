@@ -65,6 +65,10 @@ function PasswordSetup() {
 
 	}
 
+	const clickDetails = () => {
+		window.location.href = window.location.origin + '/draft-app/#/register'
+	}
+
 	var validate = () => {
 		let isValid = true;
 		
@@ -110,7 +114,7 @@ function PasswordSetup() {
 	return (
 		<div className='registerClass'>
 			<center>
-				<div> <a href='/register'>Details  </a><>  &#62;&#62;  </> <a > Setup password</a></div>
+				<div> <Button onClick={clickDetails}> Details</Button><>  &#62;&#62;  </> <a > Setup password</a></div>
 			</center>
 			<center>
 			

@@ -35,15 +35,14 @@ function Register() {
 	  };
 	  
 	  const clickSetupPassword = () => {
-		  window.location.href = window.location.origin + '/register/passwordSetup'
+		  window.location.href = window.location.origin + '/draft-app/#/register/passwordSetup'
 	  }
 	  
 	return (
 		<div className='registerClass'>
 		{/* No validation  */}
 			<center>
-				<div> <a>Details</a><>&#62;&#62;</> <Button variant="contained" onClick={clickSetupPassword}></Button>
-				<a href='/register/passwordSetup'>Setup password</a></div>
+				<div> <a>Details</a><>&#62;&#62;</> <Button onClick={clickSetupPassword}> Setup Password</Button></div>
 			</center>
 			<center>
 			<Box
@@ -70,7 +69,7 @@ function Register() {
 			
 			</Box>
 
-			<Button variant='contained' href ='/register/passwordSetup'>Next</Button>
+			<Button variant='contained' href ='/register/passwordSetup'> Next</Button>
 			<br />
 			<br />
 

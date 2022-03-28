@@ -1,7 +1,7 @@
 {
   "name": "draft-app",
   "version": "0.1.0",
-  "homepage": "https://yogeshwari-vs.github.io/draft-app#/home",
+  "homepage": "https://yogeshwari-vs.github.io/draft-app/#/home",
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
