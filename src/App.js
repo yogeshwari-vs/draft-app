@@ -23,7 +23,7 @@ function App() {
 	return (
 	<>
 	
-	<Router >
+	<HashRouter >
 		<div className='Title-app'>
 			<Horizbar />
 			<Navbar />
@@ -46,7 +46,7 @@ function App() {
 		<Route path='/register' exact element = { <Register />} />
 		<Route path='/register/passwordSetup' exact element = { < PasswordSetup />} />
     </Routes>
-	</Router>
+	</HashRouter>
 
 	</>
   );
