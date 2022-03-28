@@ -69,7 +69,7 @@ function Register() {
 			
 			</Box>
 
-			<Button variant='contained' href ='/register/passwordSetup'> Next</Button>
+			<Button variant='contained' onClick={clickSetupPassword}> Next</Button>
 			<br />
 			<br />
 
