@@ -12,6 +12,7 @@ function YesAvail() {
 	var statusDeliv
 	var count = 0;
 	var countAgain = 0
+	var countLoop = 0
 	
 
 	firebase.database().ref('availability').on('value', (snap) =>{
@@ -22,6 +23,22 @@ function YesAvail() {
 		statusDeliv = snap.val()
 	})
 
+
+	const loop =() => {
+		countLoop += 1
+		if (countLoop%8000 === 0 && statusDeliv !== 'done') {
+			firebase.database().ref('currentDelivery/status').on('value', (snap) =>{
+				statusDeliv = snap.val()
+			})
+			//console.log(countLoop)
+
+		}
+		if (statusDeliv !== 'done') setTimeout(loop, 0);
+		//console.log(statusDeliv)
+	}
+	const checkIfDone = () => {
+		console.log(" Out of the loop")
+	}
 
     const locationData = () => {
 		if (available == "yes")
@@ -66,7 +83,9 @@ function YesAvail() {
 				var cardString = formatString(resultNameFrom,resultNameTo, resultLocFrom, resultLocTo)
 				dispCurrentDelivCard(cardString)
 
+				loop();
 
+				checkIfDone();
 					
 				//window.location.href = "https://yogeshwari-vs.github.io/draft-app/#/delivery";
 				
