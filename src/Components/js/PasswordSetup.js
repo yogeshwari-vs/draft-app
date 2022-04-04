@@ -4,6 +4,7 @@ import React from 'react'
 import '../css/Register.css';
 import FormControl from '@mui/material/FormControl';
 import { TextField, Button } from '@material-ui/core'
+import database from '../../firebase';
 
 
 import InputLabel from '@mui/material/InputLabel';
@@ -34,6 +35,8 @@ function PasswordSetup() {
 
 	});
 
+	const [emailAddress, setEmailAddress] = useState();  
+
 	const handleClickShowPassword = () => {
 	setValues({ ...values, showPassword: !values.showPassword });
 	};
@@ -60,9 +63,20 @@ function PasswordSetup() {
         event.preventDefault()
 
         if(validate()){
-            alert('Password saved');
-        }
+           
+        
 
+		var userKey = emailAddress.split('@')
+		var userpwLocation = 'userAuthentication/' + userKey[0]
+
+		// database.ref(userpwLocation).set({values.password})
+		//database.ref(userpwLocation).child('password').setValue(values.password)  
+		database.ref(userpwLocation).child('password').set(values.password).then().catch();
+
+		alert('Password saved');
+
+		window.location.href = window.location.origin
+		}
 	}
 
 	const clickDetails = () => {
@@ -119,8 +133,13 @@ function PasswordSetup() {
 			<center>
 			
 			<br />
-			
-			<FormControl sx={{ m: 1, width: '40ch' }} >
+			<FormControl sx={{ m: 1, width: '80%' }} >
+			<TextField id="outlined-basic" label="Enter email adress" variant="outlined"  onChange={(e)=> setEmailAddress(e.target.value)}/>
+			<br />
+			</FormControl>
+
+			<FormControl sx={{ m: 1, width: '80%' }} >
+
 			<InputLabel htmlFor="outlined-adornment-password"> Setup your password</InputLabel>
 			<OutlinedInput
             	id="outlined-adornment-password" 
@@ -146,7 +165,7 @@ function PasswordSetup() {
 			<br />
 			<br />
 			
-			<FormControl sx={{ m: 1, width: '40ch' }} >
+			<FormControl sx={{ m: 1, width: '80%' }} >
 			<InputLabel htmlFor="outlined-adornment-password"> Re-enter your password</InputLabel>
 			<OutlinedInput
             	id="outlined-adornment-password" 

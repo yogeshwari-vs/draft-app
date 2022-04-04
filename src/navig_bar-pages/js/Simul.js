@@ -95,6 +95,7 @@ function Simul() {
 				<h2>Movement of robot </h2>
 				
 				<h3>Using text command</h3>
+				<> 
 				<TextField
 				label = "Enter direction"
 				margin = "normal"
@@ -102,11 +103,14 @@ function Simul() {
 				value = {dir}
 				onChange={(e)=> setDir(e.target.value)}
 				></TextField>
+				</>
 				
 				<br />
+				<>
 				<Button onClick={clickFunction} variant='contained'>
 					Submit
 				</Button>
+				</>
 
 				<br />
 				<br />

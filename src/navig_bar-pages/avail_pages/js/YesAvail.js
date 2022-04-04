@@ -23,21 +23,63 @@ function YesAvail() {
 		statusDeliv = snap.val()
 	})
 
-
-	const loop =() => {
-		countLoop += 1
+	const loop =(resultNameFrom,resultNameTo) => {
+		console.log('inside loop')
 		if (countLoop%8000 === 0 && statusDeliv !== 'done') {
+
 			firebase.database().ref('currentDelivery/status').on('value', (snap) =>{
 				statusDeliv = snap.val()
 			})
-			//console.log(countLoop)
-
+			console.log(countLoop)
 		}
 		if (statusDeliv !== 'done') setTimeout(loop, 0);
-		//console.log(statusDeliv)
+		console.log(statusDeliv)
+
+		countLoop += 1
+		if (statusDeliv === 'done') {
+			checkIfDone(resultNameFrom,resultNameTo);
+		}
 	}
-	const checkIfDone = () => {
+	
+	const clickToRedirect = () => {
+		window.location.href = window.location.origin + "/draft-app/#/delivery";
+
+	}
+
+	const appendInDatabase = (resultNameFrom,resultNameTo) => {
+		//append in previous delivery section of database
+		var ID ='xxxxx'
+		var pathForSender = 'previousDeliveries/' + resultNameFrom + '/' + ID 
+		database.ref(pathForSender).set({
+			SR: 'sent',
+			note: 'sample text',
+			toORfrom: resultNameTo
+		})
+
+		var pathForReceiver = 'previousDeliveries/' + resultNameTo + '/' + ID
+		database.ref(pathForReceiver).set({
+			SR: 'receiver',
+			note: 'sample text',
+			toORfrom: resultNameFrom
+		})
+
+		database.ref('currentDelivery/Sender').set({
+			Location: 'nil',
+			Name: 'nil'
+		})
+		database.ref('currentDelivery/Receiver').set({
+			Location: 'nil',
+			Name: 'nil'
+		})
+	}
+	const checkIfDone = (resultNameFrom,resultNameTo) => {
 		console.log(" Out of the loop")
+		const element = document.getElementById('confirmOrder').children[0]
+		const newElement = document.createTextNode("  ")
+		element.replaceChild(newElement, element.childNodes[0])
+		document.getElementById('confirmOrder').insertAdjacentHTML('beforeend',"<center><h2>COMPLETED!</h2></center>")
+		appendInDatabase(resultNameFrom,resultNameTo);
+
 	}
 
     const locationData = () => {
@@ -83,13 +125,7 @@ function YesAvail() {
 				var cardString = formatString(resultNameFrom,resultNameTo, resultLocFrom, resultLocTo)
 				dispCurrentDelivCard(cardString)
 
-				loop();
-
-				checkIfDone();
-					
-				//window.location.href = "https://yogeshwari-vs.github.io/draft-app/#/delivery";
-				
-
+				loop(resultNameFrom,resultNameTo);
 			}
 		}
 		else{
@@ -110,7 +146,7 @@ function YesAvail() {
 	}
 	const dispCurrentDelivCard = (string) => {
 		if (count == 0){
-			document.getElementById('confirmOrder').insertAdjacentHTML('beforeend',"<center><h2>Your order has been placed</h2></canter>")
+			document.getElementById('confirmOrder').insertAdjacentHTML('beforeend',"<center><h2>Your order has been placed</h2></center>")
 			document.getElementById('currentOrderCard').insertAdjacentHTML('afterend',string)
 			count = count+1
 		}
@@ -123,15 +159,21 @@ function YesAvail() {
 			document.getElementById('confirmOrder').insertAdjacentHTML('beforeend',"<center><h2>Your order has been already been placed</h2></center>")
 				
 			countAgain = countAgain + 1;
-
 			}
 		}
+	}
+
+	const funcCheck = () => {
+		var value1 = '	Yogiii'
+		var value2 = 'React app'
 	}
 	
 
 	
     return (
         <div>
+			
+			<Button onClick={clickToRedirect}>  &#60;&#60; <span/> Go back to Delivery page</Button>
 			<div id = 'confirmOrder'></div>
             <center>
             <h1> Place your order!!!</h1>

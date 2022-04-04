@@ -35,7 +35,7 @@ function App() {
 		<Route path='/contact' exact element = {<Contact />} />
 		<Route path='/delivery' exact element= {<Delivery />}/>
 		<Route path='/direction' exact element= {<Direction />}/>
-		<Route path='/login' exact element={<LoginOrSignup />} />
+		<Route path='/' exact element={<LoginOrSignup />} />
 		<Route path='/simul' exact element = { <Simul />} />
 		<Route path='/delivery/prevdeliv' exact element = {<PrevDeliv/>} />
 		<Route path='/delivery/candeliv' exact element = {<CanDeliv />}/>

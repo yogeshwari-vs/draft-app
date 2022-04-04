@@ -3,14 +3,12 @@ import '../css/Register.css';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import { TextField, Button } from '@material-ui/core';
+import database from '../../firebase';
+import firebase from 'firebase';
 
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
+
 import {useState} from 'react';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
 
 
 
@@ -22,22 +20,63 @@ function Register() {
 		showPassword: false,
 	  });
 
-	  const handleClickShowPassword = () => {
-		setValues({ ...values, showPassword: !values.showPassword });
-	  };
-	  
-	  const handleMouseDownPassword = (event) => {
-		event.preventDefault();
-	  };
-	  
-	  const handlePasswordChange = (prop) => (event) => {
-		setValues({ ...values, [prop]: event.target.value });
-	  };
-	  
-	  const clickSetupPassword = () => {
-		  console.log()
-		  window.location.href = window.location.origin + '/draft-app/#/register/passwordSetup'
-	  }
+	const [emailAddress, setEmailAddress] = useState();  
+	const [name, setName] = useState();  
+	const [department, setDepartment] = useState();  
+	const [id, setID] = useState();  
+	let user = 'exstingUser'
+
+	//console.log(emailAddress, name, department, id)
+	const clickSetupPassword = () => {
+		console.log('clicksetuppassword')
+
+		var userKey = emailAddress.split('@')
+		var userLocation = 'userAuthentication/' + userKey[0] 
+		var checkEmail = firebase.database().ref('userAuthentication');
+		var countKeys = 0
+		var countKeysArray = [];
+		// console.log(userLocation)
+		checkEmail.orderByKey().on('child_added', function(data){
+			console.log(data.key);
+			countKeysArray[countKeys] = data.key
+			countKeys += 1
+			})
+		console.log(countKeysArray)
+		var count = 0
+		for (count=1; count <= countKeysArray.length; ++count) {
+			console.log('for loop')
+			console.log(countKeysArray[count])
+			if (userKey === countKeysArray[count]) {
+				user = "existingUser"
+				console.log('existing user')
+				
+				break
+			}
+			else {
+				user = "newUser"
+				console.log('newUser')
+			}
+			
+		}
+
+		if (user === 'newUser') {
+			console.log('if condn')
+			database.ref(userLocation).set({
+				name: name,
+				department: department,
+				staffID: id,
+				password: 'nil'
+			})
+
+		window.location.href = window.location.origin + '/draft-app/#/register/passwordSetup'
+
+		}
+		else{
+			alert('Email address already exists.')
+			
+		}
+
+	}
 	  
 	return (
 		<div className='registerClass'>
@@ -49,19 +88,19 @@ function Register() {
 			<Box
 			component="form"
 			sx={{
-				'& .MuiTextField-root': { m: 1.5, width: '50ch' },
+				'& .MuiTextField-root': { m: 1, width: '100%' },
 			}}
 			noValidate
 			autoComplete="off"
 			>
-			<FormControl>
-			<TextField id="outlined-basic" label="Enter email adress" variant="outlined" />
+			<FormControl sx={{ m: 0.75, width: '80%' }}>
+			<TextField id="outlined-basic" label="Enter email adress" variant="outlined"  onChange={(e)=> setEmailAddress(e.target.value)}/>
 			<br />
-			<TextField id="outlined-basic" label="Name" variant="outlined" />
+			<TextField id="outlined-basic" label="Name" variant="outlined" onChange={(e)=> setName(e.target.value)}/>
 			<br />
-			<TextField id="outlined-basic" label="Department" variant="outlined" />
+			<TextField id="outlined-basic" label="Department" variant="outlined"onChange={(e)=> setDepartment(e.target.value)} />
 			<br />
-			<TextField id="outlined-basic" label="ID" variant="outlined" />
+			<TextField id="outlined-basic" label="ID" variant="outlined" onChange={(e)=> setID(e.target.value)}/>
 			<br />
 			<br />
             <br />

@@ -2,6 +2,7 @@ import {useState} from 'react';
 import { TextField, Button } from '@material-ui/core'
 import React from 'react'
 import FormControl from '@mui/material/FormControl';
+import firebase from 'firebase';
 
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -33,8 +34,56 @@ function LoginOrSignup() {
     setValues({ ...values, [prop]: event.target.value });
     
     };
-    console.log(username)
-    console.log(values.password)
+    
+    const loginButton = () => 
+    { 
+    var userKey = username.split('@')
+    var userLocation = 'userAuthentication/' + userKey[0] 
+    var checkEmail = firebase.database().ref('userAuthentication');
+		var countKeys = 0
+		var countKeysArray = [];
+    var userStatus = 'newUser'
+		
+    checkEmail.orderByKey().on('child_added', function(data){
+			countKeysArray[countKeys] = data.key
+			countKeys += 1
+			})
+		var count = 0
+		for (count=0; count <= countKeysArray.length - 1; ++count) {
+
+      if (userKey[0] === countKeysArray[count]) {
+  			userStatus = 'existingUser'
+				break
+			}
+			else {
+				userStatus = "newUser"
+			}
+			
+		}
+
+    var password
+    if (userStatus === 'existingUser') {
+      var passwordLocation = 'userAuthentication/' + userKey[0] + '/password'
+      firebase.database().ref(passwordLocation).on('value', (snap) =>{
+        password = snap.val()
+      })
+
+
+      if (password === values.password) {
+        
+        window.location.href = window.location.origin + '/draft-app/#/delivery'
+      }
+      else{
+        alert('Incorrect password')
+      }
+      
+    }
+    else{
+      alert('Please use registered email address')
+    }
+
+
+}
     
     const clickRegister = () => {
 
@@ -49,13 +98,13 @@ function LoginOrSignup() {
             <TextField
             label = 'Username/emailID'
             margin='normal'
-            style={{width:'23%'}}
+            style={{width:'60%'}}
             onChange={(e)=> setUsername(e.target.value)}
             >
             </TextField>
             <br />
 
-            <FormControl sx={{ m: 1, width: '23%' }} >
+            <FormControl sx={{ m: 1, width: '60%' }} >
             <InputLabel htmlFor="standard-adornment-password"> Password</InputLabel>
             <OutlinedInput
                     id="standard-adornment-password" 
@@ -78,12 +127,12 @@ function LoginOrSignup() {
 
             <br />
             <br />
-            <Button variant='contained'>Submit</Button>
+            <Button onClick={loginButton}variant='contained'>Submit</Button>
             <br />
           
             <br />
             Don't have an account?
-            <Button onClick={clickRegister}> Register </Button> <a href='/register'>Register</a>
+            <Button onClick={clickRegister}> Register </Button>
             </center>
 
             <br />

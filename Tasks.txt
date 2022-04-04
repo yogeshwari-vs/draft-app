@@ -1,0 +1,1 @@
+generalize code for replacing and displaying text/updates

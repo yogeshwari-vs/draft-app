@@ -12,8 +12,8 @@ var youTubeID = require("get-youtube-id")
 function Home() {
 
 	const opts = {
-	  height: "390",
-	  width: "640",
+	  height: "350",
+	  width: "80%	",
 	  playerVars: {
 		autoplay: 1
 	  }

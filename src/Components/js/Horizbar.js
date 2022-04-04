@@ -10,8 +10,8 @@
         var originString = window.location.origin;
 
         const clickFunc = () => {
-            console.log(originString + '/draft-app/#/login')
-            window.location.href = originString + "/draft-app/#/login";
+            //console.log(originString + '/draft-app/#/login')
+            window.location.href = originString + "/draft-app";
 
 
         }
@@ -25,10 +25,12 @@
                 <div className='Login' >
                     Login
                 </div>
-                </a> */}
-                <div className='Login'>
+                
+                </a> */}    
+                <br />
+                {/* <div className='Login'>
                 <Button variant="contained" onClick={clickFunc}>Login</Button>
-                </div>
+                </div> */}
 
                 
             </>
