@@ -9,9 +9,9 @@
 
         var originString = window.location.origin;
 
-        const clickFunc = () => {
+        const logoutFunc = () => {
             //console.log(originString + '/draft-app/#/login')
-            window.location.href = originString + "/draft-app";
+            window.location.href = originString + "/login";
 
 
         }
@@ -28,9 +28,6 @@
                 
                 </a> */}    
                 <br />
-                {/* <div className='Login'>
-                <Button variant="contained" onClick={clickFunc}>Login</Button>
-                </div> */}
 
                 
             </>

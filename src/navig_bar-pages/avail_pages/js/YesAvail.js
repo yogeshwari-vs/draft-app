@@ -4,6 +4,8 @@ import {useState} from 'react';
 import firebase from 'firebase';
 import database from '../../../firebase';
 import '../css/YesAvail.css';
+import {useLocation} from 'react-router-dom';
+import { CollectionsOutlined } from '@material-ui/icons';
 
 
 function YesAvail() {
@@ -13,7 +15,17 @@ function YesAvail() {
 	var count = 0;
 	var countAgain = 0
 	var countLoop = 0
+	var userKey 
+	var userLocation
+	var resultNameFrom
 	
+	
+	var emailAddress
+    const location = useLocation();
+    emailAddress = location.state.emailAddress;
+
+	userKey = emailAddress.split('@');
+	userLocation = 'userAuthentication/' + userKey[0];
 
 	firebase.database().ref('availability').on('value', (snap) =>{
 		available = snap.val()
@@ -22,18 +34,29 @@ function YesAvail() {
 	firebase.database().ref('currentDelivery/status').on('value', (snap) =>{
 		statusDeliv = snap.val()
 	})
+	const getSenderName = () => {
 
-	const loop =(resultNameFrom,resultNameTo) => {
+		firebase.database().ref(userLocation + '/name').on('value', (snap) =>{
+			resultNameFrom = snap.val()
+		})
+		console.log('resultNameFrom: ', resultNameFrom	)
+	}
+
+
+
+	const loop =(resultNameTo) => {
 		console.log('inside loop')
+		getSenderName()
 		if (countLoop%8000 === 0 && statusDeliv !== 'done') {
+
 
 			firebase.database().ref('currentDelivery/status').on('value', (snap) =>{
 				statusDeliv = snap.val()
 			})
-			console.log(countLoop)
+			//console.log(countLoop)
 		}
 		if (statusDeliv !== 'done') setTimeout(loop, 0);
-		console.log(statusDeliv)
+		//console.log(statusDeliv)
 
 		countLoop += 1
 		if (statusDeliv === 'done') {
@@ -42,11 +65,13 @@ function YesAvail() {
 	}
 	
 	const clickToRedirect = () => {
-		window.location.href = window.location.origin + "/draft-app/#/delivery";
+		window.location.href = window.location.origin + "/draft-app/";
 
 	}
 
-	const appendInDatabase = (resultNameFrom,resultNameTo) => {
+	const appendInDatabase = (resultNameTo) => {
+		getSenderName()
+
 		//append in previous delivery section of database
 		var ID ='xxxxx'
 		var pathForSender = 'previousDeliveries/' + resultNameFrom + '/' + ID 
@@ -85,9 +110,12 @@ function YesAvail() {
     const locationData = () => {
 		if (available == "yes")
 		{
+			
+			getSenderName()
+		
 			var selectedLocFrom = document.getElementById('selectionBoxLocFrom')
 			var selectedLocTo = document.getElementById('selectionBoxLocTo')
-			var selectedNameFrom = document.getElementById('selectionBoxNameFrom')
+			// var selectedNameFrom = document.getElementById('selectionBoxNameFrom')
 			var selectedNameTo = document.getElementById('selectionBoxNameTo')
 			var id = 'xxxx'
 
@@ -95,14 +123,13 @@ function YesAvail() {
 				var resultLocFrom = selectedLocFrom.options[selectedLocFrom.selectedIndex].value}
 			if (selectedLocTo.selectedIndex > 0) {
 				var resultLocTo = selectedLocTo.options[selectedLocTo.selectedIndex].value}
-			if (selectedNameFrom.selectedIndex > 0) {
-				var resultNameFrom = selectedNameFrom.options[selectedNameFrom.selectedIndex].value}
+			// if (selectedNameFrom.selectedIndex > 0) {
+			// 	var resultNameFrom = selectedNameFrom.options[selectedNameFrom.selectedIndex].value}
 			if (selectedNameTo.selectedIndex > 0) {
 				var resultNameTo = selectedNameTo.options[selectedNameTo.selectedIndex].value}
-
 			console.log(resultNameFrom)
 			
-			if (resultLocFrom == undefined || resultLocTo == undefined || resultNameTo == undefined || resultNameFrom == undefined ) {
+			if (resultLocFrom == undefined || resultLocTo == undefined || resultNameTo == undefined ) {
 				alert('Some textfield is missing! Kindly select any option to proceed.')
 			}
 
@@ -136,11 +163,11 @@ function YesAvail() {
 	
 		
 	const formatString = (resultNameFrom, resultNameTo, resultLocFrom, resultLocTo) => {
-		var stringTitle = '<div class="Card"><div class="Card-title"><b>Your current order</b></div><br /><br /><div class="Card-body">'
+		var stringTitle = '<div class="Card"><div class="Card-title"><br /><br /><b>Your current order</b></div><br /><br /><div class="Card-body">'
 		var stringSender = '<b>Sender:</b><span /><b>'+ resultNameFrom +'</b><br />'
 		var stringReceiver = '<b>Receiver:<span /></b><b>'+ resultNameTo+ '</b><br />'
-		var stringLocFrom = '<h4>Location</h4><span /><b>From:<span /></b><b>'+ resultLocFrom+ '</b><br />'
-		var stringLocTo = '<b>From:<span /></b><b>'+ resultLocTo + '</b><br /></div></div>'
+		var stringLocFrom = 'From:<span /></b><b>'+ resultLocFrom+ '</b><br />'
+		var stringLocTo = '<b>To:<span /></b><b>'+ resultLocTo + '</b><br /></div></div>'
 		var string = stringTitle + stringSender + stringReceiver + stringLocFrom + stringLocTo;
 		return string
 	}
@@ -162,18 +189,11 @@ function YesAvail() {
 			}
 		}
 	}
-
-	const funcCheck = () => {
-		var value1 = '	Yogiii'
-		var value2 = 'React app'
-	}
-	
-
 	
     return (
         <div>
 			
-			<Button onClick={clickToRedirect}>  &#60;&#60; <span/> Go back to Delivery page</Button>
+			<Button onClick={clickToRedirect}>  &#60;&#60; <span/> Go back to Home page</Button>
 			<div id = 'confirmOrder'></div>
             <center>
             <h1> Place your order!!!</h1>
@@ -181,11 +201,11 @@ function YesAvail() {
 
             <center>
                 {/* Name selection */}
-                <select id='selectionBoxNameFrom'>
+                {/* <select id='selectionBoxNameFrom'>
 					<option selected disabled value="">Select Sender </option>
 					<option value={"Aarthi"}>Aarthi</option>		
 					<option value={"Sowbhagya"}>Sowbhagya</option>		
-				</select>
+				</select> */}
 				<span />
 				<span />
 				<span />
@@ -221,7 +241,10 @@ function YesAvail() {
 
 				<br />
 				<br />
+				<div 
+					style={{position: "relative",zIndex: 0}}>
 
+				</div>
 				<Button onClick={locationData} variant='contained'>
 					Submit
 				</Button>

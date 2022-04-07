@@ -1,10 +1,12 @@
 import React from 'react'
 import '../css/Delivery.css';
-
-import Card from '../../Components/cards/js/Card';
-
 import firebase from 'firebase';
-import { Button } from '@mui/material';
+import Navbar from '../../Components/js/Navbar';
+import LogoutHorizbar from '../../Components/js/LogoutHorizbar';
+
+import {useLocation} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+
 
 
 function Delivery() {
@@ -12,6 +14,10 @@ function Delivery() {
 	var available, status_robot, delivValues
 	var string = window.location.href;
 	var countKeysArray = [];
+	var emailAddressLogin
+	var emailAddressRegister
+
+	const navigate = useNavigate()
 
 	// Robot availability
 	firebase.database().ref('availability').on('value', (snap) =>{
@@ -21,7 +27,9 @@ function Delivery() {
 
 	const availFunction = () => {
 		if (available == "yes") {
-			window.location.href = string + '/yesavail';
+			navigate('/delivery/yesavail',{state:{emailAddress:emailAddress}});
+
+			//window.location.href = string + '/yesavail';
 			//window.location.href = 'http://localhost:3000/simul';
 			//window.location.href = 'https://yogeshwari-vs.github.io/simul';
 		}
@@ -54,10 +62,27 @@ function Delivery() {
 	console.log(countKeysArray)
 
 	//--------------------------------------------------------------------------------------------
+	
+	var emailAddress
+    const location = useLocation();
+    emailAddressRegister = location.state.emailAddress;
+	emailAddressLogin = location.state.emailAddressValue
+
+	if (emailAddressLogin === undefined){
+		emailAddress = emailAddressRegister
+	}
+	else{
+		emailAddress = emailAddressLogin
+	}
+	console.log("Here it isssss.....",emailAddress)
+
 
 	return (
 		<>
 		<div className = 'Delivery-page '>
+		<LogoutHorizbar />
+		<Navbar/>
+
 		<center>
 			<h1>Delivery</h1>
 		</center>

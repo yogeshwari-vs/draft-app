@@ -6,13 +6,6 @@
 	padding-top: 7px;
 	padding-bottom: 7px;
 	/* font-style: bold; */
+	height: 20%;
 }
 
-.Login {
-    font-size: 30px;
-	text-align: right;
-	padding-right: 50px;
-	/* padding-top: 7px; */
-	padding-bottom: 7px;
-	color: black;
-}

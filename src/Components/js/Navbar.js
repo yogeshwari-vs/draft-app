@@ -5,13 +5,15 @@ import * as AiIcons from 'react-icons/ai';
 import {SidebarData} from './SidebarData';
 import '../css/Navbar.css';
 import {IconContext} from 'react-icons';
+import {useLocation} from 'react-router-dom';
+
 
 function Navbar() {
   
     const [sidebar, setSidebar] = useState(false);
-
     const showSidebar = () => setSidebar(!sidebar);
-    
+		
+
     return (
 
     <>
@@ -33,7 +35,8 @@ function Navbar() {
                 {SidebarData.map((item,index) =>{
                     return (
                         <li key={index} className={item.cName} >
-                            <Link to={item.path}>
+                            <Link to={{pathname: item.path}}>
+                                {/* , state: {emailId: props.emailID} */}
                                 {item.icon}
                                 <span>{item.title}</span>
                             </Link>

@@ -5,12 +5,13 @@ import FormControl from '@mui/material/FormControl';
 import { TextField, Button } from '@material-ui/core';
 import database from '../../firebase';
 import firebase from 'firebase';
+import InputLabel from '@mui/material/InputLabel';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import {Link, useNavigate} from 'react-router-dom';
 
 
 import {useState} from 'react';
-
-
-
 
 
 function Register() {
@@ -24,51 +25,76 @@ function Register() {
 	const [name, setName] = useState();  
 	const [department, setDepartment] = useState();  
 	const [id, setID] = useState();  
-	let user = 'exstingUser'
+	var user
+	var password
+	var passwordLocation
+	var userKey 
+	var userLocation
+	var checkEmail 
+	var countKeys = 0
+	var countKeysArray = []
+
+	const navigate = useNavigate()
+
+
+	const handleChange = (event) => {
+		setDepartment(event.target.value);
+	  };
+	
 
 	//console.log(emailAddress, name, department, id)
 	const clickSetupPassword = () => {
-		console.log('clicksetuppassword')
 
-		var userKey = emailAddress.split('@')
-		var userLocation = 'userAuthentication/' + userKey[0] 
-		var checkEmail = firebase.database().ref('userAuthentication');
-		var countKeys = 0
-		var countKeysArray = [];
-		// console.log(userLocation)
+		if (!name || !emailAddress || !department)
+		{ 
+				alert("Some of the textfeilds are missing. Please check")
+		}
+		else
+		{
+		userKey = emailAddress.split('@');
+		userLocation = 'userAuthentication/' + userKey[0];
+		checkEmail = firebase.database().ref('userAuthentication');
+		
+		// array containing all the registered email ids
 		checkEmail.orderByKey().on('child_added', function(data){
-			console.log(data.key);
 			countKeysArray[countKeys] = data.key
 			countKeys += 1
 			})
-		console.log(countKeysArray)
+
 		var count = 0
 		for (count=1; count <= countKeysArray.length; ++count) {
-			console.log('for loop')
-			console.log(countKeysArray[count])
-			if (userKey === countKeysArray[count]) {
-				user = "existingUser"
-				console.log('existing user')
+				
+			if (userKey[0] === countKeysArray[count]) {
+				user = "registeredUser"
+				passwordLocation = 'userAuthentication/' + userKey[0] + '/password'
+				firebase.database().ref(passwordLocation).on('value', (snap) =>{
+					password = snap.val()
+				  })
+
+				if (password === 'nil'){
+					user = 'unregisteredUser'
+				}
 				
 				break
 			}
 			else {
 				user = "newUser"
-				console.log('newUser')
 			}
+		}
 			
 		}
 
-		if (user === 'newUser') {
-			console.log('if condn')
+		if (user === 'newUser' || user === 'unregisteredUser') {
 			database.ref(userLocation).set({
 				name: name,
 				department: department,
-				staffID: id,
-				password: 'nil'
+				emailAddress: emailAddress,
+				password: 'nil',
+				// staffID: id,
 			})
 
-		window.location.href = window.location.origin + '/draft-app/#/register/passwordSetup'
+		navigate('/register/passwordSetup',{state:{id:1,emailAddress:emailAddress}});
+		//window.location.href = window.location.origin + '/draft-app/#/register/passwordSetup'
 
 		}
 		else{
@@ -77,14 +103,15 @@ function Register() {
 		}
 
 	}
-	  
+		
 	return (
 		<div className='registerClass'>
-		{/* No validation  */}
 			<center>
 				<div> <a>Details</a><>&#62;&#62;</> <Button onClick={clickSetupPassword}> Setup Password</Button></div>
 			</center>
+
 			<center>
+			
 			<Box
 			component="form"
 			sx={{
@@ -98,19 +125,43 @@ function Register() {
 			<br />
 			<TextField id="outlined-basic" label="Name" variant="outlined" onChange={(e)=> setName(e.target.value)}/>
 			<br />
-			<TextField id="outlined-basic" label="Department" variant="outlined"onChange={(e)=> setDepartment(e.target.value)} />
-			<br />
-			<TextField id="outlined-basic" label="ID" variant="outlined" onChange={(e)=> setID(e.target.value)}/>
-			<br />
-			<br />
-            <br />
-			
 			</FormControl>
-			
 			</Box>
 
-			<Button variant='contained' onClick={clickSetupPassword}> Next</Button>
+			<Box
+			component="form"
+			sx={{
+				'& .MuiTextField-root': { m: 1, width: '100%' },
+			}}
+			noValidate
+			autoComplete="off"
+			>
+			<FormControl sx={{ m: 0.75, width: '82%' }}>
+			<InputLabel id="demo-simple-select-label">Department</InputLabel>
+			<Select
+				id="demo-simple-select"
+				value={department}
+				label="Department"
+				onChange={handleChange}
+				>
+				<MenuItem value={'EIE'}>Electronics and Instrumentation Engineering</MenuItem>
+				<MenuItem value={'ECE'}>Electronics and Communication Engineering</MenuItem>
+				<MenuItem value={'CT'}>Computer Technology</MenuItem>
+				<MenuItem value={'IT'}>Information Technology</MenuItem>
+				<MenuItem value={'AE'}>Automobile Engineering</MenuItem>
+				<MenuItem value={'AS'}>Aerospace Engineering</MenuItem>
+				<MenuItem value={'PT'}>Production Technology</MenuItem>
+			</Select>
+			</FormControl>
+			</Box>
+			
+			
 			<br />
+			{/* <TextField id="outlined-basic" label="ID" variant="outlined" onChange={(e)=> setID(e.target.value)}/>
+			<br /> */}
+			<br />
+            <br />
+			<Button variant='contained' onClick={clickSetupPassword}> Next</Button>
 			<br />
 
 			</center>

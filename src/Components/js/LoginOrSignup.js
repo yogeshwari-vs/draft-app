@@ -10,16 +10,20 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import {Link, useNavigate} from 'react-router-dom';
 
 
 function LoginOrSignup() {
 
+  
     const [username, setUsername] = useState();  
     const [values, setValues] = useState({
 		amount: '',
 		password: '',
 		showPassword: false,
     });
+	  const navigate = useNavigate()
+
     
     const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -40,50 +44,74 @@ function LoginOrSignup() {
     var userKey = username.split('@')
     var userLocation = 'userAuthentication/' + userKey[0] 
     var checkEmail = firebase.database().ref('userAuthentication');
-		var countKeys = 0
-		var countKeysArray = [];
-    var userStatus = 'newUser'
+    var countKeys = 0
+    var countKeysArray = [];
+    var userStatus
+    var count = 0
+    var password
+    var passwordLocation
+    var emailAddress = 
+
+    console.log('entered click function')
 		
     checkEmail.orderByKey().on('child_added', function(data){
 			countKeysArray[countKeys] = data.key
 			countKeys += 1
 			})
-		var count = 0
-		for (count=0; count <= countKeysArray.length - 1; ++count) {
 
+      console.log('countKeys')
+		
+      for (count=0; count <= countKeysArray.length - 1; ++count) {
+      console.log('for loop')
+      
       if (userKey[0] === countKeysArray[count]) {
   			userStatus = 'existingUser'
-				break
-			}
-			else {
-				userStatus = "newUser"
-			}
+        passwordLocation = 'userAuthentication/' + userKey[0] + '/password'
+        firebase.database().ref(passwordLocation).on('value', (snap) =>{
+          password = snap.val()
+        })
+
+
+        if (password === values.password) {
+		      navigate('/delivery',{state:{emailAddressValue:username}});
+
+          //window.location.href = window.location.origin + '/draft-app/#/home'
+        }
+        
+        else{
+          alert('Incorrect password or email address')
+        }
+        
+      }
+
 			
 		}
 
-    var password
-    if (userStatus === 'existingUser') {
-      var passwordLocation = 'userAuthentication/' + userKey[0] + '/password'
-      firebase.database().ref(passwordLocation).on('value', (snap) =>{
-        password = snap.val()
-      })
+
+    // var password
+    // if (userStatus === 'existingUser') {
+    //   var passwordLocation = 'userAuthentication/' + userKey[0] + '/password'
+    //   firebase.database().ref(passwordLocation).on('value', (snap) =>{
+    //     password = snap.val()
+    //   })
 
 
-      if (password === values.password) {
+    //   if (password === values.password) {
         
-        window.location.href = window.location.origin + '/draft-app/#/delivery'
-      }
-      else{
-        alert('Incorrect password')
-      }
+    //     window.location.href = window.location.origin + '/draft-app/#/delivery'
+    //   }
+    //   else{
+    //     alert('Incorrect password')
+    //   }
       
-    }
-    else{
-      alert('Please use registered email address')
-    }
+    // }
+    // else{
+    //   console.log('hellooo')
+    //   alert('Please use registered email address')
+    // }
 
 
-}
+  }
     
     const clickRegister = () => {
 
@@ -93,7 +121,7 @@ function LoginOrSignup() {
     return (
         <div>
             <center>
-            <h3>Login or SignUp</h3>
+            <h3>Login</h3>
             <br />
             <TextField
             label = 'Username/emailID'

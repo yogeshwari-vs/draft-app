@@ -3,13 +3,16 @@ import React from 'react';
 import * as AiIcons from 'react-icons/ai';
 //import * as IoIcons from 'react-icons/io';
 
+
+
+
 export const SidebarData = [
 
     {
         title: 'Home',
-        path: '/home',
+        path: '/',
         icon: <AiIcons.AiFillHome />,
-        cName: 'Nav-bar-item'
+        cName: 'Nav-bar-item',
     },
     {   
         title: 'Instructions',
@@ -19,7 +22,7 @@ export const SidebarData = [
     },
     {
         title: 'Delivery',
-        path: '/delivery',
+        path: '/login',
         icon: <AiIcons.AiOutlineEnvironment />,
         cName: 'Nav-bar-item'
     },

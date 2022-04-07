@@ -5,6 +5,8 @@ import '../css/Register.css';
 import FormControl from '@mui/material/FormControl';
 import { TextField, Button } from '@material-ui/core'
 import database from '../../firebase';
+import {useLocation} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 
 import InputLabel from '@mui/material/InputLabel';
@@ -23,7 +25,14 @@ function PasswordSetup() {
 	var countPassword = 0;
 	var countReenterpassword = 0;
 	var countPasswordDoesntMatch = 0;
+	var emailAddress
 
+	const navigate = useNavigate()
+
+	const location = useLocation()
+	emailAddress = location.state.emailAddress
+	console.log('transferred data:', location.state.emailAddress)
+	
 	const [values, setValues] = useState({
 		password: '',
 		showPassword: false,
@@ -35,7 +44,6 @@ function PasswordSetup() {
 
 	});
 
-	const [emailAddress, setEmailAddress] = useState();  
 
 	const handleClickShowPassword = () => {
 	setValues({ ...values, showPassword: !values.showPassword });
@@ -63,8 +71,6 @@ function PasswordSetup() {
         event.preventDefault()
 
         if(validate()){
-           
-        
 
 		var userKey = emailAddress.split('@')
 		var userpwLocation = 'userAuthentication/' + userKey[0]
@@ -75,7 +81,9 @@ function PasswordSetup() {
 
 		alert('Password saved');
 
-		window.location.href = window.location.origin
+		navigate('/delivery',{state:{emailAddress:emailAddress}});
+
+		//window.location.href = window.location.origin + '/draft-app/#/home'
 		}
 	}
 
@@ -97,11 +105,7 @@ function PasswordSetup() {
 			}
 			}
 		}
-		// else {
-		// 	const checkPasswordElement = document.getElementById("error-password");
-		// 	checkPasswordElement.removeChild(checkPasswordElement.firstElementChild)
 
-		// }
 
 		else if (!reentervalues.reenterpassword) {
 			isValid = false;
@@ -133,10 +137,6 @@ function PasswordSetup() {
 			<center>
 			
 			<br />
-			<FormControl sx={{ m: 1, width: '80%' }} >
-			<TextField id="outlined-basic" label="Enter email adress" variant="outlined"  onChange={(e)=> setEmailAddress(e.target.value)}/>
-			<br />
-			</FormControl>
 
 			<FormControl sx={{ m: 1, width: '80%' }} >
 
@@ -162,7 +162,6 @@ function PasswordSetup() {
 			</FormControl>
 			<div id='error-password'></div>
 			<div id='password-doesnt-match'></div>
-			<br />
 			<br />
 			
 			<FormControl sx={{ m: 1, width: '80%' }} >

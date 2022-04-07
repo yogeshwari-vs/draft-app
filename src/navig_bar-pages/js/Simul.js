@@ -5,6 +5,8 @@ import React from 'react';
 import firebase from 'firebase';
 import database from '../../firebase';
 import LoginOrSignup from '../../Components/js/LoginOrSignup';
+import Navbar from '../../Components/js/Navbar';
+import LogoutHorizbar from '../../Components/js/LogoutHorizbar';
 
 function Simul() {
 
@@ -83,6 +85,11 @@ function Simul() {
 		
 	return (
 		<>
+					
+		<div style={{position: "relative", zIndex:3}}>
+		<Navbar />
+
+		</div>
 		<center>
 			<h1>SIMULATION</h1>
 		</center>
@@ -169,7 +176,7 @@ function Simul() {
 				<br />
 				<br />
 
-				<Button onClick={locationData} variant='contained'>
+				<Button onClick={locationData} variant='contained' style={{position: "relative", zIndex:2}}>
 					Submit
 				</Button>
 
