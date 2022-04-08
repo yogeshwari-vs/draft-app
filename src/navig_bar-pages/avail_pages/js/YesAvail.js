@@ -168,10 +168,11 @@ function YesAvail() {
 				dispCurrentDelivCard(cardString)
 
 				loop(resultNameFrom,resultNameTo);
+
 			}
 		}
 		else{
-			window.location.href = window.location.href + "delivery/notavail";
+			window.location.href = window.location.origin + "delivery/notavail";
 		}
 	}
 
@@ -180,8 +181,8 @@ function YesAvail() {
 	const formatString = (resultNameFrom, resultNameTo, resultLocFrom, resultLocTo) => {
 		var stringTitle = '<div class="Card"><div class="Card-title"><br /><br /><b>Your current order</b></div><br /><br /><div class="Card-body">'
 		var stringSender = '<b>Sender:</b><span /><b>'+ resultNameFrom +'</b><br />'
-		var stringReceiver = '<b>Receiver:<span /></b><b>'+ resultNameTo+ '</b><br />'
-		var stringLocFrom = 'From:<span /></b><b>'+ resultLocFrom+ '</b><br />'
+		var stringReceiver = '<b>Receiver:<span /></b><b>'+ resultNameTo+ '</b><br /><br />'
+		var stringLocFrom = '<b>From:<span /></b><b>'+ resultLocFrom+ '</b><br />'
 		var stringLocTo = '<b>To:<span /></b><b>'+ resultLocTo + '</b><br /></div></div>'
 		var string = stringTitle + stringSender + stringReceiver + stringLocFrom + stringLocTo;
 		return string
