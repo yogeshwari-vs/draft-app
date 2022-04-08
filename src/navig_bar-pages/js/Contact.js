@@ -8,7 +8,7 @@ function Contact() {
       <Navbar />
 
       <center>
-      <h1>Contact</h1>
+      <h3>For any queries, write to us via</h3> <h2>paraescapade.yas@gmail.com</h2>
       </center>
     </div>
   )

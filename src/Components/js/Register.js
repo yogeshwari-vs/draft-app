@@ -33,6 +33,9 @@ function Register() {
 	var checkEmail 
 	var countKeys = 0
 	var countKeysArray = []
+	var countAlert
+
+	countAlert = 0
 
 	const navigate = useNavigate()
 
@@ -98,7 +101,8 @@ function Register() {
 
 		}
 		else{
-			alert('Email address already exists.')
+			if (countAlert === 1){
+			alert('Email address already exists.')}
 			
 		}
 

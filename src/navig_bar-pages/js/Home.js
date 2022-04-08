@@ -39,14 +39,14 @@ function Home() {
 
 		
 		<center>
-			<h1> Working of SBADR</h1>
+			<h2> Working</h2>
 			<div className='YT-video'>
 				<YouTube videoId={"-lBpGBWOcuU"} opts={opts} />	
 			</div>
 			<br />
 
 			<div>
-				<h1> Robot Designs </h1>
+				<h2> Robot Designs </h2>
 				<img src={Robot} width={300} height={300}/>   {/* alt='1' */}
 				<span />				
 				<span />				

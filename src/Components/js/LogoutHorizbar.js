@@ -6,7 +6,7 @@ function LogoutHorizbar() {
     var originString = window.location.origin;
     const logoutFunc = () => {
         //console.log(originString + '/draft-app/#/login')
-        window.location.href = originString + "/login";
+        window.location.href = originString + "/draft-app/#/login";
     }
     return (
       <div className='LogoutElement'>

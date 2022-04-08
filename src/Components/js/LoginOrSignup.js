@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {Link, useNavigate} from 'react-router-dom';
+import Navbar from '../../Components/js/Navbar';
 
 
 function LoginOrSignup() {
@@ -119,7 +120,11 @@ function LoginOrSignup() {
     }
     
     return (
-        <div>
+
+          	<div>
+		        <div style={{position: "relative", zIndex:3}}>
+		        <Navbar />
+            </div>
             <center>
             <h3>Login</h3>
             <br />

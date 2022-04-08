@@ -112,6 +112,10 @@ function YesAvail() {
 			Location: 'nil',
 			Name: 'nil'
 		})
+
+		database.ref('currentDelivery').set({
+			status:'none'
+		})
 	}
 	const checkIfDone = (resultNameFrom,resultNameTo) => {
 		console.log(" Out of the loop")
@@ -149,7 +153,7 @@ function YesAvail() {
 			}
 
 			else if (resultNameFrom == resultNameTo){
-				alert("Sender and Recever are same! Please recheck")
+				alert("Sender and Receiver are same! Please recheck")
 			}
 			else if (resultLocFrom == resultLocTo) {
 				alert("Sender location cannot be same as Receiver location!")
@@ -271,8 +275,8 @@ function YesAvail() {
 					<option selected disabled value="">Select Sender Location</option>
 					<option value={"Location A"}>Location A</option>		
 					<option value={"Location B"}>Location B</option>		
-					<option value={"Location C"}>Location C</option>		
-					<option value={"Location D"}>Location D</option>
+					{/* <option value={"Location C"}>Location C</option>		
+					<option value={"Location D"}>Location D</option> */}
 				</select>
 				<span />
 				<span />
@@ -282,8 +286,8 @@ function YesAvail() {
 					<option selected disabled value="">Select Receiver Location</option>
 					<option value={"Location A"}>Location A</option>		
 					<option value={"Location B"}>Location B</option>		
-					<option value={"Location C"}>Location C</option>	
-					<option value={"Location D"}>Location D</option>	
+					{/* <option value={"Location C"}>Location C</option>	
+					<option value={"Location D"}>Location D</option>	 */}
 				</select>
 
 				<br />

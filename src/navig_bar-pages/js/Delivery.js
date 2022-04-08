@@ -1,7 +1,6 @@
 import React from 'react'
 import '../css/Delivery.css';
 import firebase from 'firebase';
-import Navbar from '../../Components/js/Navbar';
 import LogoutHorizbar from '../../Components/js/LogoutHorizbar';
 
 import {useLocation} from 'react-router-dom';
@@ -82,7 +81,6 @@ function Delivery() {
 		<>
 		<div className = 'Delivery-page '>
 		<LogoutHorizbar />
-		<Navbar/>
 
 		<center>
 			<h1>Delivery</h1>
