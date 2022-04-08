@@ -8,6 +8,7 @@ import {useLocation} from 'react-router-dom';
 import { CollectionsOutlined } from '@material-ui/icons';
 
 
+
 function YesAvail() {
 
     var available
@@ -18,15 +19,30 @@ function YesAvail() {
 	var userKey 
 	var userLocation
 	var resultNameFrom
-	
-	
+	var countKeys = 0
+    var countKeysArray = [];
+	var nameValue
+	var selectedNameTo
+
 	var emailAddress
+	var signal
     const location = useLocation();
     emailAddress = location.state.emailAddress;
-
+	signal = location.state.signal
 	userKey = emailAddress.split('@');
 	userLocation = 'userAuthentication/' + userKey[0];
 
+	
+	// if (signal === 'proceed'){
+		var countKeys = 0
+		var countKeysArray = [];
+		var nameValue
+		var selectedNameTo
+			
+		var checkEmail = firebase.database().ref('userAuthentication');
+		var userLocation 
+
+		
 	firebase.database().ref('availability').on('value', (snap) =>{
 		available = snap.val()
 	})
@@ -116,7 +132,7 @@ function YesAvail() {
 			var selectedLocFrom = document.getElementById('selectionBoxLocFrom')
 			var selectedLocTo = document.getElementById('selectionBoxLocTo')
 			// var selectedNameFrom = document.getElementById('selectionBoxNameFrom')
-			var selectedNameTo = document.getElementById('selectionBoxNameTo')
+			selectedNameTo = document.getElementById('selectionBoxNameTo')
 			var id = 'xxxx'
 
 			if (selectedLocFrom.selectedIndex > 0) {
@@ -127,7 +143,6 @@ function YesAvail() {
 			// 	var resultNameFrom = selectedNameFrom.options[selectedNameFrom.selectedIndex].value}
 			if (selectedNameTo.selectedIndex > 0) {
 				var resultNameTo = selectedNameTo.options[selectedNameTo.selectedIndex].value}
-			console.log(resultNameFrom)
 			
 			if (resultLocFrom == undefined || resultLocTo == undefined || resultNameTo == undefined ) {
 				alert('Some textfield is missing! Kindly select any option to proceed.')
@@ -189,7 +204,38 @@ function YesAvail() {
 			}
 		}
 	}
-	
+	checkEmail.orderByKey().on('child_added', function(data){
+		countKeysArray[countKeys] = data.key
+		// console.log('data.key:', data.key)		
+		// console.log(countKeysArray)
+		userLocation = 'userAuthentication/' + data.key
+		// console.log(userLocation)
+		firebase.database().ref(userLocation + '/name').on('value', (snap) =>{
+			nameValue = snap.val()
+			// console.log(nameValue)
+		})
+		var selectedOption = document.getElementById('selectionBoxNameTo')
+		selectedOption.add(new Option(nameValue))
+		//var x = document.getElementById("locationList");
+		//count the lenth of select optons
+		var listLength = selectedOption.length;
+		for (var i = 0; i < listLength; i++) {
+			for (var j = 0; j < listLength; j++) {
+			//i != j This prevents the actual index from being deleted
+			//x.options[i].value == x.options[j].value => it finds the duplicate index.
+			if (selectedOption.options[i].value == selectedOption.options[j].value && i != j) {
+				//Remove duplicate option element
+				selectedOption.remove(j);
+				//Refresh the list Length
+				listLength--;
+			}
+		}
+	}
+		countKeys += 1
+
+	})
+
+
     return (
         <div>
 			
@@ -212,8 +258,8 @@ function YesAvail() {
 				<span />
 				<select id='selectionBoxNameTo' >
 					<option selected disabled value="">Select Receiver </option>
-					<option value={"Aarthi"}>Aarthi</option>		
-					<option value={"Sowbhagya"}>Sowbhagya</option>	
+					{/* <option value={"Aarthi"}>Aarthi</option>		
+					<option value={"Sowbhagya"}>Sowbhagya</option>	 */}
 				</select>
 
                 <br />

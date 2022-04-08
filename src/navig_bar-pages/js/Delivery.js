@@ -27,14 +27,15 @@ function Delivery() {
 
 	const availFunction = () => {
 		if (available == "yes") {
-			navigate('/delivery/yesavail',{state:{emailAddress:emailAddress}});
+			navigate('/delivery/yesavail',{state:{emailAddress:emailAddress, signal:'yes'}});
 
 			//window.location.href = string + '/yesavail';
 			//window.location.href = 'http://localhost:3000/simul';
 			//window.location.href = 'https://yogeshwari-vs.github.io/simul';
 		}
 		else {
-			window.location.href = string +	'/notavail'	;
+			navigate('/delivery/notavail',{state:{emailAddress:emailAddress}});
+			//window.location.href = string +	'/notavail'	;
 		}
 	}
 
