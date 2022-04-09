@@ -101,10 +101,12 @@ function Register() {
 
 		}
 		else{
-			if (countAlert === 1){
+			if (countAlert !== 1){
 			alert('Email address already exists.')}
 			
 		}
+
+		count += 1
 
 	}
 		
