@@ -23,7 +23,8 @@ function YesAvail() {
     var countKeysArray = [];
 	var nameValue
 	var selectedNameTo
-
+	var resultFirstNameFrom 
+	var resultFirstNameTo
 	var emailAddress
 	var signal
     const location = useLocation();
@@ -60,7 +61,7 @@ function YesAvail() {
 
 
 
-	const loop =(resultNameTo) => {
+	const loop =(resultNameFrom,resultNameTo) => {
 		console.log('inside loop')
 		getSenderName()
 		if (countLoop%8000 === 0 && statusDeliv !== 'done') {
@@ -86,23 +87,31 @@ function YesAvail() {
 	}
 
 	const appendInDatabase = (resultNameTo) => {
+		console.log("appendInDatabase")
 		getSenderName()
 
 		//append in previous delivery section of database
-		var ID ='xxxxx'
-		var pathForSender = 'previousDeliveries/' + resultNameFrom + '/' + ID 
-		database.ref(pathForSender).set({
-			SR: 'sent',
-			note: 'sample text',
-			toORfrom: resultNameTo
-		})
 
-		var pathForReceiver = 'previousDeliveries/' + resultNameTo + '/' + ID
-		database.ref(pathForReceiver).set({
-			SR: 'receiver',
-			note: 'sample text',
-			toORfrom: resultNameFrom
+		database.ref('currentDelivery').set({
+			status:'none'
 		})
+		// var resultFirstNameFrom = resultNameFrom.split(' ')
+		// var resultFirstNameTo = resultNameTo.split(' ')
+
+		// var ID ='xxxxx'
+		// var pathForSender = 'previousDeliveries/' + resultFirstNameFrom[0] + '/' + ID 
+		// database.ref(pathForSender).set({
+		// 	SR: 'sent',
+		// 	note: 'sample text',
+		// 	toORfrom: resultNameTo
+		// })
+
+		// var pathForReceiver = 'previousDeliveries/' + resultFirstNameTo[0] + '/' + ID
+		// database.ref(pathForReceiver).set({
+		// 	SR: 'receiver',
+		// 	note: 'sample text',
+		// 	toORfrom: resultNameFrom
+		// })
 
 		database.ref('currentDelivery/Sender').set({
 			Location: 'nil',
@@ -113,9 +122,6 @@ function YesAvail() {
 			Name: 'nil'
 		})
 
-		database.ref('currentDelivery').set({
-			status:'none'
-		})
 	}
 	const checkIfDone = (resultNameFrom,resultNameTo) => {
 		console.log(" Out of the loop")
@@ -123,7 +129,7 @@ function YesAvail() {
 		const newElement = document.createTextNode("  ")
 		element.replaceChild(newElement, element.childNodes[0])
 		document.getElementById('confirmOrder').insertAdjacentHTML('beforeend',"<center><h2>COMPLETED!</h2></center>")
-		appendInDatabase(resultNameFrom,resultNameTo);
+		appendInDatabase(resultNameTo);
 
 	}
 
