@@ -72,7 +72,7 @@ function LoginOrSignup() {
           password = snap.val()
         })
 
-
+        console.log(username)
         if (password === values.password) {
 		      navigate('/delivery',{state:{emailAddressValue:username}});
 

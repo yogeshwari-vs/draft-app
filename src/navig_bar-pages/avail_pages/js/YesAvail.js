@@ -31,7 +31,7 @@ function YesAvail() {
     emailAddress = location.state.emailAddress;
 	signal = location.state.signal
 	userKey = emailAddress.split('@');
-	userLocation = 'userAuthentication/' + userKey[0];
+	var userLocationResult = 'userAuthentication/' + userKey[0];
 
 	
 	// if (signal === 'proceed'){
@@ -53,7 +53,7 @@ function YesAvail() {
 	})
 	const getSenderName = () => {
 
-		firebase.database().ref(userLocation + '/name').on('value', (snap) =>{
+		firebase.database().ref( userLocationResult + '/name').on('value', (snap) =>{
 			resultNameFrom = snap.val()
 		})
 		console.log('resultNameFrom: ', resultNameFrom	)
@@ -220,7 +220,7 @@ function YesAvail() {
 		// console.log('data.key:', data.key)		
 		// console.log(countKeysArray)
 		userLocation = 'userAuthentication/' + data.key
-		// console.log(userLocation)
+		console.log(userLocation)
 		firebase.database().ref(userLocation + '/name').on('value', (snap) =>{
 			nameValue = snap.val()
 			// console.log(nameValue)

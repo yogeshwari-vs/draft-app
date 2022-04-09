@@ -17,6 +17,7 @@ function Delivery() {
 	var emailAddressRegister
 
 	const navigate = useNavigate()
+	const location = useLocation();
 
 	// Robot availability
 	firebase.database().ref('availability').on('value', (snap) =>{
@@ -24,7 +25,19 @@ function Delivery() {
 	})
 	//console.log(available)
 
+
 	const availFunction = () => {
+		var emailAddress
+		emailAddressRegister = location.state.emailAddress;
+		emailAddressLogin = location.state.emailAddressValue
+	
+		if (emailAddressLogin === undefined){
+			emailAddress = emailAddressRegister
+		}
+		else{
+			emailAddress = emailAddressLogin
+		}
+		console.log("Here it isssss.....",emailAddress)
 		if (available == "yes") {
 			navigate('/delivery/yesavail',{state:{emailAddress:emailAddress, signal:'yes'}});
 
@@ -42,7 +55,7 @@ function Delivery() {
 	firebase.database().ref('currentDelivery/status').on('value', (snap) =>{
 		status_robot = snap.val()
 	})
-	var userName = 'Aarthi'
+	var userName
 
 	// firebase.database().ref('previousDeliveries' + '/' + userName ).on('value', (snap) =>{
 	// 	delivValues = snap.val()
@@ -63,18 +76,7 @@ function Delivery() {
 
 	//--------------------------------------------------------------------------------------------
 	
-	var emailAddress
-    const location = useLocation();
-    emailAddressRegister = location.state.emailAddress;
-	emailAddressLogin = location.state.emailAddressValue
 
-	if (emailAddressLogin === undefined){
-		emailAddress = emailAddressRegister
-	}
-	else{
-		emailAddress = emailAddressLogin
-	}
-	console.log("Here it isssss.....",emailAddress)
 
 
 	return (
