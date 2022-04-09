@@ -43,6 +43,11 @@ function LoginOrSignup() {
     const loginButton = () => 
     { 
     var userKey = username.split('@')
+    var userKey1 = userKey[0]
+		if (userKey1.includes('.')){
+			userKey = userKey1.split('.')
+		}
+
     var userLocation = 'userAuthentication/' + userKey[0] 
     var checkEmail = firebase.database().ref('userAuthentication');
     var countKeys = 0

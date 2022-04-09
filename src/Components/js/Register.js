@@ -15,16 +15,7 @@ import {useState} from 'react';
 
 
 function Register() {
-	const [values, setValues] = useState({
-		amount: '',
-		password: '',
-		showPassword: false,
-	  });
-
-	const [emailAddress, setEmailAddress] = useState();  
-	const [name, setName] = useState();  
-	const [department, setDepartment] = useState();  
-	const [id, setID] = useState();  
+ 
 	var user
 	var password
 	var passwordLocation
@@ -36,6 +27,17 @@ function Register() {
 	var countAlert
 
 	countAlert = 0
+
+	const [values, setValues] = useState({
+		amount: '',
+		password: '',
+		showPassword: false,
+	  });
+
+	const [emailAddress, setEmailAddress] = useState();  
+	const [name, setName] = useState();  
+	const [department, setDepartment] = useState();  
+	const [id, setID] = useState(); 
 
 	const navigate = useNavigate()
 
@@ -55,6 +57,13 @@ function Register() {
 		else
 		{
 		userKey = emailAddress.split('@');
+		var userKey1 = userKey[0]
+		if (userKey1.includes('.')){
+			userKey = userKey1.split('.')
+		}
+
+		console.log(userKey)
+
 		userLocation = 'userAuthentication/' + userKey[0];
 		checkEmail = firebase.database().ref('userAuthentication');
 		

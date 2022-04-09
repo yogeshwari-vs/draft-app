@@ -73,6 +73,11 @@ function PasswordSetup() {
         if(validate()){
 
 		var userKey = emailAddress.split('@')
+		var userKey1 = userKey[0]
+		if (userKey1.includes('.')){
+			userKey = userKey1.split('.')
+		}
+
 		var userpwLocation = 'userAuthentication/' + userKey[0]
 
 		// database.ref(userpwLocation).set({values.password})
