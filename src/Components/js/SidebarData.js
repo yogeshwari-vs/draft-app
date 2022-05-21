@@ -45,6 +45,18 @@ export const SidebarData = [
         cName: 'Nav-bar-item'
     },
     {
+        title: 'Map',
+        path: '/map',
+        icon: <AiIcons.AiFillRobot />,
+        cName: 'Nav-bar-item'
+    },
+    {
+        title: 'MapDisplay',
+        path: '/mapdisplay',
+        icon: <AiIcons.AiFillRobot />,
+        cName: 'Nav-bar-item'
+    },
+    {
         title: 'Simulation',
         path: '/simul',
         icon: <AiIcons.AiFillRobot />,

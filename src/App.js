@@ -17,6 +17,9 @@ import LoginOrSignup from './Components/js/LoginOrSignup';
 import Register from './Components/js/Register';
 import PasswordSetup from './Components/js/PasswordSetup'
 import LogoutHorizbar from './Components/js/LogoutHorizbar';
+import MapDisplay from './navig_bar-pages/js/MapDisplay';
+import Map from './navig_bar-pages/js/Map';
+
 
 function App() {
 
@@ -35,6 +38,8 @@ function App() {
 			<Route path='/delivery' exact element= {<Delivery />}/>
 			<Route path='/direction' exact element= {<Direction />}/>
 			<Route path='/login' exact element={<LoginOrSignup />} />
+			<Route path='/map' exact element = {< Map />} />
+			<Route path='/mapdisplay' exact element = {< MapDisplay />} />
 			<Route path='/simul' exact element = { <Simul />} />
 			<Route path='/delivery/prevdeliv' exact element = {<PrevDeliv/>} />
 			<Route path='/delivery/candeliv' exact element = {<CanDeliv />}/>

@@ -23,8 +23,7 @@ function YesAvail() {
     var countKeysArray = [];
 	var nameValue
 	var selectedNameTo
-	var resultFirstNameFrom 
-	var resultFirstNameTo
+
 	var emailAddress
 	var signal
     const location = useLocation();
@@ -34,14 +33,12 @@ function YesAvail() {
 	var userLocationResult = 'userAuthentication/' + userKey[0];
 
 	
-	// if (signal === 'proceed'){
-		var countKeys = 0
-		var countKeysArray = [];
-		var nameValue
-		var selectedNameTo
-			
-		var checkEmail = firebase.database().ref('userAuthentication');
-		var userLocation 
+	var countKeys = 0
+	var countKeysArray = [];
+	var nameValue
+	var selectedNameTo
+	var checkEmail = firebase.database().ref('userAuthentication');
+	var userLocation 
 
 		
 	firebase.database().ref('availability').on('value', (snap) =>{

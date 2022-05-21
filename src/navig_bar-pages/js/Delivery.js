@@ -19,11 +19,6 @@ function Delivery() {
 	const navigate = useNavigate()
 	const location = useLocation();
 
-	// Robot availability
-	firebase.database().ref('availability').on('value', (snap) =>{
-		available = snap.val()
-	})
-	//console.log(available)
 
 
 	const availFunction = () => {
@@ -38,7 +33,7 @@ function Delivery() {
 			emailAddress = emailAddressLogin
 		}
 		console.log("Here it isssss.....",emailAddress)
-		if (available == "yes") {
+		if (status_robot == "yes") {
 			navigate('/delivery/yesavail',{state:{emailAddress:emailAddress, signal:'yes'}});
 
 			//window.location.href = string + '/yesavail';
@@ -52,9 +47,23 @@ function Delivery() {
 	}
 
 	// Robot status
-	firebase.database().ref('currentDelivery/status').on('value', (snap) =>{
+	firebase.database().ref('/availability').on('value', (snap) =>{
 		status_robot = snap.val()
 	})
+
+	const dbRef = ref(getDatabase());
+	get(child(dbRef, `/availability`)).then((snapshot) => {
+	  if (snapshot.exists()) {
+		console.log(snapshot.val());
+	  } else {
+		console.log("No data available");
+	  }
+	}).catch((error) => {
+	  console.error(error);
+	});
+	
+	console.log('status_robot:', status_robot)
+	console.log('robo: ', robo)
 	var userName
 
 	// firebase.database().ref('previousDeliveries' + '/' + userName ).on('value', (snap) =>{

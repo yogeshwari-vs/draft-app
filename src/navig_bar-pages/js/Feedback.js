@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../../Components/js/Navbar';
 import LogoutHorizbar from '../../Components/js/LogoutHorizbar';
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core';
 import {useState} from 'react';
 import database from '../../firebase';
 
